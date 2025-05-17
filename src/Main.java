@@ -5,16 +5,18 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         int[][] teams = {
-                { 45, 31, 24, 22, 20, 17, 14, 13, 12, 10 },
-                { 31, 18, 15, 12, 10, 8, 6, 4, 2, 1 },
-                { 51, 30, 10, 9, 8, 7, 6, 5, 2, 1 }
+                {45, 31, 24, 22, 20, 17, 14, 13, 12, 10},
+                {31, 18, 15, 12, 10, 8, 6, 4, 2, 1},
+                {51, 30, 10, 9, 8, 7, 6, 5, 2, 1}
         };
 
         int[] nationalTeam = mergeAll(teams);
         System.out.println(Arrays.toString(nationalTeam)); // [51, 45, 31, 31, 30, 24, 22, 20, 18, 17]
     }
 
-    /** Метод для слияния всех команд в одну национальную */
+    /**
+     * Метод для слияния всех команд в одну национальную
+     */
     public static int[] mergeAll(int[][] teams) {
         if (teams.length == 0) {
             return new int[0];
@@ -27,31 +29,28 @@ public class Main {
 
     }
 
-    /** Метод для слияния двух команд в одну */
+    /**
+     * Метод для слияния двух команд в одну
+     */
     public static int[] merge(int[] teamA, int[] teamB) {
         int[] topRank = new int[10];
         int iA = 0;
         int iB = 0;
         int iR = 0;
 
-        while (iR < topRank.length) {
-           if (iA == teamA.length) {
-               topRank[iR] = teamB[iB];
-               iB++;
-           } else if (iB == teamB.length) {
-               topRank[iR] = teamA[iA];
-           } else {
-               if (teamA[iA] <= teamB[iB]) {
-                   topRank[iR] = teamB[iB];
-                   iB++;
-               }else {
-                   topRank[iR] = teamA[iA];
-                   iA++;
-               }
-           }
-           iR++;
+        while (iR < 10 && iA < teamA.length && iB < teamB.length) {
+            if (teamA[iA] >= teamB[iB]) {
+                topRank[iR++] = teamA[iA++];
+            } else {
+                topRank[iR++] = teamB[iB++];
+            }
+        }
+        while (iR < 10 && iA < teamA.length) {
+            topRank[iR++] = teamA[iA++];
+        }
+        while (iR < 10 && iB < teamB.length) {
+            topRank[iR++] = teamB[iB++];
         }
         return topRank;
-
     }
 }
