@@ -38,18 +38,12 @@ public class Main {
         int iB = 0;
         int iR = 0;
 
-        while (iR < 10 && iA < teamA.length && iB < teamB.length) {
-            if (teamA[iA] >= teamB[iB]) {
+        while (iR < 10) {
+            if (iA < 10 && (iB >= 10 || teamA[iA] >= teamB[iB])) {
                 topRank[iR++] = teamA[iA++];
             } else {
                 topRank[iR++] = teamB[iB++];
             }
-        }
-        while (iR < 10 && iA < teamA.length) {
-            topRank[iR++] = teamA[iA++];
-        }
-        while (iR < 10 && iB < teamB.length) {
-            topRank[iR++] = teamB[iB++];
         }
         return topRank;
     }
